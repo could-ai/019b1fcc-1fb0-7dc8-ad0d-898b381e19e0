@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,117 +8,105 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Resume Kuliah Pakar',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0F4C81)), // UII Blue tone
+        useMaterial3: true,
+        fontFamily: 'Roboto',
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const MyHomePage(title: 'Flutter Demo Home Page'),
+        '/': (context) => const ResumeScreen(),
       },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class ResumeScreen extends StatelessWidget {
+  const ResumeScreen({super.key});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+  final String _resumeContent = '''
+# RESUME KULIAH PAKAR MATA KULIAH WAJIB UNIVERSITAS (MKWU) TERPADU
+**Universitas Islam Indonesia**
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+**Tema:** Internalisasi Nilai Anti Korupsi dalam Kehidupan Akademik
+**Narasumber:** Bapak Ari Wibowo, S.H., M.H.
+**Sambutan:** Prof. Dr. Jaka Nugraha, S.Si., M.Si.
+**Moderator:** Ibu Dr. Dian Kus Pratiwi, S.H., M.H.
 
-  final String title;
+---
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+## 1. Pendahuluan dan Sambutan
+Acara diawali dengan pembacaan ayat suci Al-Qur'an dan lagu Indonesia Raya. Dalam sambutannya, **Prof. Dr. Jaka Nugraha** menyoroti paradoks kondisi bangsa Indonesia. Beliau memaparkan bahwa Indonesia adalah negara yang sangat kaya akan sumber daya alam, namun angka kemiskinan masih cukup tinggi. Hal ini disebabkan oleh kebocoran anggaran negara (APBN) yang diperkirakan mencapai 30% akibat inefisiensi dan korupsi. Beliau menekankan bahwa korupsi bukan hanya masalah hukum, tetapi masalah moral.
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+## 2. Inti Materi: Potret Korupsi
+**Bapak Ari Wibowo** membuka paparan dengan tinjauan historis bahwa korupsi telah menjadi masalah fundamental bangsa sejak lama.
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+### Kekayaan Alam vs Realita
+Narasumber memaparkan data kekayaan Indonesia yang luar biasa (hutan, tambang, maritim) namun belum mampu menyejahterakan rakyat secara merata karena salah kelola. Kerugian negara akibat korupsi mencapai ratusan triliun rupiah.
+
+### Penyebab Korupsi
+Korupsi terjadi karena **Niat + Kesempatan**. Faktor pendorongnya meliputi:
+1.  **Keserakahan & Hedonisme:** Gaya hidup pejabat yang mewah.
+2.  **Biaya Politik Tinggi:** Modal besar untuk kampanye.
+3.  **Hilangnya Moral:** Koruptor tidak lagi merasa malu.
+
+### Korupsi di Lingkungan Akademik
+Bibit korupsi bisa tumbuh di kampus, seperti:
+-   Jasa joki skripsi.
+-   Plagiarisme.
+-   Mencontek.
+
+## 3. Kesimpulan
+Kejujuran adalah induk dari segala kebaikan. Mahasiswa didorong untuk aktif sebagai kontrol sosial dan membangun budaya jujur.
+
+*"Daripada mengutuk kegelapan, lebih baik menyalakan obor penerang."*
+''';
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: const Text('Resume Kuliah Pakar'),
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text('$_counter', style: Theme.of(context).textTheme.headlineMedium),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Card(
+              elevation: 4,
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Icon(Icons.description, size: 48, color: Colors.blue),
+                    SizedBox(height: 8),
+                    Text(
+                      'Dokumen Resume Tersedia',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'File lengkap RESUME_KULIAH.md telah dibuat di folder proyek.',
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              _resumeContent,
+              style: const TextStyle(fontSize: 16, height: 1.5),
+            ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
